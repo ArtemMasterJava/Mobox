@@ -12,6 +12,7 @@ import com.anohin.formobex.model.pojo.Flower;
 import com.anohin.formobex.model.utilities.Constants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.util.List;
 
@@ -69,9 +70,11 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
 
         TextView mName, mCategory, mPrice, mInstructions;
         ImageView mImage;
+        SwipeLayout mSwipeLayout;
 
         Holder(View itemView) {
             super(itemView);
+            mSwipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             mImage = (ImageView) itemView.findViewById(R.id.flowerImage);
             mName = (TextView) itemView.findViewById(R.id.flowerName);
             mCategory = (TextView) itemView.findViewById(R.id.flowerCategory);
@@ -79,4 +82,5 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
             mInstructions = (TextView) itemView.findViewById(R.id.flowerInstruction);
         }
     }
+
 }

@@ -1,65 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="5dp"
-                                    card_view:cardCornerRadius="1dp">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="5dp"
+                                        card_view:cardCornerRadius="1dp">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/flowerImage"
-            android:layout_alignParentTop="true"
-            android:clickable="true"
-            android:background="@drawable/bkg"
-            >
+            <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/swipe"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            swipe:leftEdgeSwipeOffset="0dp"
+                                            swipe:rightEdgeSwipeOffset="0dp">
+                <LinearLayout
+                    android:tag="Bottom4"
+                    android:id="@+id/bottom_wrapper_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/flowerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/flowerCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/flowerPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text" />
-
-            <TextView
-                android:id="@+id/flowerInstruction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/flowerImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+                    <ImageView
+                        android:id="@+id/magnifier2"
+                        android:src="@drawable/magnifier"
+                        android:layout_width="70dp"
+                        android:background="#f7e79c"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:layout_height="match_parent" />
 
 
-    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/trash2"
+                        android:src="@drawable/trash"
+                        android:layout_width="70dp"
+                        android:background="@drawable/red"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/flowerImage"
+                    android:background="@drawable/bkg"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:layout_width="292dp">
+
+                    <ImageView
+                        android:id="@+id/flowerImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                    <TextView
+                        android:id="@+id/flowerCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_below="@+id/flowerName"
+                        android:layout_alignLeft="@+id/flowerName"
+                        android:layout_alignStart="@+id/flowerName"/>
+
+                    <TextView
+                        android:id="@+id/flowerInstruction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:layout_below="@+id/flowerPrice"
+                        android:layout_alignLeft="@+id/flowerPrice"
+                        android:layout_alignStart="@+id/flowerPrice"/>
+
+                    <TextView
+                        android:id="@+id/flowerPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:layout_below="@+id/flowerCategory"
+                        android:layout_alignLeft="@+id/flowerCategory"
+                        android:layout_alignStart="@+id/flowerCategory"/>
+
+                    <TextView
+                        android:id="@+id/flowerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_marginLeft="77dp"
+                        android:layout_marginStart="77dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+                </RelativeLayout>
+
+            </com.daimajia.swipe.SwipeLayout>
 
 </android.support.v7.widget.CardView>

@@ -17,6 +17,8 @@ import com.anohin.formobex.model.pojo.Flower;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.anohin.formobex.R.id.swipe;
+
 public class MainActivity extends AppCompatActivity implements Controller.FlowerCallbackListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -32,7 +34,10 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
         mController = new Controller(MainActivity.this);
         configViews();
         mController.startFetching();
+
     }
+
+
 
     private void configToolbar() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
 
     private void configViews() {
         RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.list);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) this.findViewById(R.id.swipe);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) this.findViewById(swipe);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
