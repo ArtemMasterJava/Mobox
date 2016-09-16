@@ -1,18 +1,20 @@
 package com.anohin.formobex.model.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.anohin.formobex.OnImageViewListener;
 import com.anohin.formobex.R;
+import com.anohin.formobex.databinding.ItemRowBinding;
 import com.anohin.formobex.model.pojo.Flower;
 import com.anohin.formobex.model.utilities.Constants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.swipe.SwipeLayout;
+
+import android.databinding.BindingAdapter;
+import android.databinding.DataBindingUtil;
+import android.support.v7.widget.RecyclerView;
+import android.view.*;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -23,9 +25,17 @@ import java.util.List;
 public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> {
 
     private List<Flower> mFlowers;
+    private OnImageViewListener mListener;
 
     public FlowersAdapter(List<Flower> flowers) {
         mFlowers = flowers;
+    }
+
+    @BindingAdapter("bind:img")
+    public static void loadImage(ImageView imageView, String v) {
+        Glide.with(imageView.getContext()).load(Constants.PHOTO_URL + v)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
     public void addFlower(Flower flower) {
@@ -35,35 +45,36 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemRowBinding binding = ItemRowBinding.inflate(LayoutInflater.from(parent.getContext()),
+                parent, false);
 
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+        //View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent,
+        // false);
 
-        return new Holder(row);
+        return new Holder(binding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
 
         Flower currentFlower = mFlowers.get(position);
-        holder.mName.setText(currentFlower.mName);
-        holder.mCategory.setText(currentFlower.mCategory);
-        holder.mPrice.setText(Double.toString(currentFlower.mPrice));
-        holder.mInstructions.setText(currentFlower.mInstructions);
-
-
-        Glide.with(holder.itemView.getContext())
-                .load(Constants.PHOTO_URL + currentFlower.mPhoto)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.mImage);
-
-
-       // Picasso.with(holder.itemView.getContext()).load(Constants.PHOTO_URL + currentFlower.mPhoto).into(holder.mImage);
+        holder.mBinding.setFlower(currentFlower);
+        holder.mImageUrl = currentFlower.mPhoto;
     }
 
     @Override
     public int getItemCount() {
         return mFlowers.size();
+    }
+
+    public void deleteItem(int position) {
+        mFlowers.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(OnImageViewListener listener) {
+        mListener = listener;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -74,20 +85,26 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
 //        @Bind(R.id.mInstructions)   TextView flowerInstructions;
 //        @Bind(R.id.mImage)          Image flowerImage;
 
-
+        ItemRowBinding mBinding;
 
         TextView mName, mCategory, mPrice, mInstructions;
         ImageView mImage;
+        String mImageUrl;
         SwipeLayout mSwipeLayout;
 
         Holder(View itemView) {
             super(itemView);
-            mSwipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
+            mBinding = DataBindingUtil.bind(itemView);
             mImage = (ImageView) itemView.findViewById(R.id.flowerImage);
-            mName = (TextView) itemView.findViewById(R.id.flowerName);
-            mCategory = (TextView) itemView.findViewById(R.id.flowerCategory);
-            mPrice = (TextView) itemView.findViewById(R.id.flowerPrice);
-            mInstructions = (TextView) itemView.findViewById(R.id.flowerInstruction);
+            mImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onImageViewClicked(v, mImageUrl);
+                    }
+
+                }
+            });
         }
     }
 

@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -17,8 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service android:name=".view.service.BackgroundService" />
-        <receiver android:name=".view.service.AlarmReceiver"></receiver>
+
+        <service android:name=".view.service.BackgroundService"/>
+
+        <receiver android:name=".view.service.AlarmReceiver"/>
+
+        <activity android:name=".Main2Activity">
+        </activity>
     </application>
 
 </manifest>

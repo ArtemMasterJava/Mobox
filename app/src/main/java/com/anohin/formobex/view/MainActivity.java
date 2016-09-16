@@ -1,26 +1,25 @@
 package com.anohin.formobex.view;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-import com.anohin.formobex.R;
+import com.anohin.formobex.*;
 import com.anohin.formobex.controller.Controller;
 import com.anohin.formobex.model.adapter.FlowersAdapter;
 import com.anohin.formobex.model.pojo.Flower;
 import com.anohin.formobex.view.service.AlarmReceiver;
 import com.daimajia.swipe.SwipeLayout;
+
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.*;
+import android.view.*;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
         this.mContext = this;
         Intent alarm = new Intent(this.mContext, AlarmReceiver.class);
         boolean alarmRunning = (PendingIntent.getBroadcast(this.mContext, 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
-        if (alarmRunning == false) {
+        if (!alarmRunning) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mContext, 0, alarm, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, DELAY, INTERVAL, pendingIntent);
@@ -72,6 +71,19 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
 
         mFlowersAdapter = new FlowersAdapter(mFlowerList);
         recyclerView.setAdapter(mFlowersAdapter);
+        mFlowersAdapter.setListener(new OnImageViewListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onImageViewClicked(View view, String url) {
+
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+// Pass data object in the bundle and populate details activity.
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MainActivity.this, view, "profile");
+                intent.putExtra("image", url);
+                MainActivity.this.startActivity(intent, options.toBundle());
+            }
+        });
 
         //noinspection deprecation
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent),
@@ -132,10 +144,12 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
     }
 
     public void onClickTrash(View view) {
-        Toast.makeText(MainActivity.this, "Trash Bin", Toast.LENGTH_SHORT).show();
+        mFlowersAdapter.deleteItem(Integer.parseInt(view.getTag().toString()));
+        Toast.makeText(MainActivity.this, "Trash Bin" + view.getTag().toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void onClickMagnifier(View view) {
         Toast.makeText(MainActivity.this, "Detail Menu", Toast.LENGTH_SHORT).show();
+
     }
 }

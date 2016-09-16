@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable name="flower" type="com.anohin.formobex.model.pojo.Flower"/>
+    </data>
+    <android.support.v7.widget.CardView
                                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -22,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/magnifier"
-                    android:src="@drawable/magnifier"
+                    android:src="@drawable/bkg"
                     android:layout_width="70dp"
                     android:background="#f7e79c"
                     android:clickable="true"
@@ -34,9 +40,9 @@
 
                 <ImageView
                     android:id="@+id/trash"
-                    android:src="@drawable/trash"
+                    android:src="@drawable/bkg"
                     android:layout_width="70dp"
-                    android:background="@drawable/red"
+                    android:background="@drawable/bkg"
                     android:onClick="onClickTrash"
                     android:clickable="true"
                     android:paddingLeft="25dp"
@@ -44,10 +50,6 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
 
-            <!--<data>-->
-                <!--<variable android:name="handlers" android:type="com.example.Handlers"/>-->
-                <!--<variable android:name="flower" android:type="com.anohin.formobex.model.pojo"/>-->
-            <!--</data>-->
 
             <RelativeLayout
                 android:layout_height="match_parent"
@@ -65,13 +67,15 @@
                     android:layout_height="80dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_alignParentStart="true"
+                    app:img="@{flower.mPhoto}"
+                />
 
                 <TextView
                     android:id="@+id/flowerCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Small Text"
+                    android:text="@{flower.mCategory}"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:layout_below="@+id/flowerName"
                     android:layout_alignLeft="@+id/flowerName"
@@ -81,7 +85,7 @@
                     android:id="@+id/flowerInstruction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
+                    android:text="@{flower.mInstructions}"
                     android:layout_below="@+id/flowerPrice"
                     android:layout_alignLeft="@+id/flowerPrice"
                     android:layout_alignStart="@+id/flowerPrice"/>
@@ -90,7 +94,7 @@
                     android:id="@+id/flowerPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
+                    android:text="@{String.valueOf(flower.mPrice)}"
                     android:layout_below="@+id/flowerCategory"
                     android:layout_alignLeft="@+id/flowerCategory"
                     android:layout_alignStart="@+id/flowerCategory"/>
@@ -99,13 +103,15 @@
                     android:id="@+id/flowerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/flowerImage"
+                    android:text="@{flower.mName}"
+                    tools:text="Medium Text"
                     android:layout_toEndOf="@+id/flowerImage"/>
             </RelativeLayout>
 
         </com.daimajia.swipe.SwipeLayout>
 
     </android.support.v7.widget.CardView>
+</layout>
