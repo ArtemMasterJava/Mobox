@@ -4,11 +4,22 @@ package com.anohin.formobex.model.pojo;
 // * Created by Artem on 15.09.2016.
 // */
 
-public class Flower {
+import com.google.gson.annotations.SerializedName;
 
-    public String mCategory, mInstructions, mPhoto, mName;
+public class Flower {
+    @SerializedName("mCategory")
+    public String mCategory;
+    @SerializedName("mInstructions")
+    public String mInstructions;
+    @SerializedName("mPhoto")
+    public String mPhoto;
+    @SerializedName("mName")
+    public String mName;
+    @SerializedName("mPrice")
     public double mPrice;
+    @SerializedName("mProductId")
     public int mProductId;
+
 
     private Flower(Builder builder){
         mCategory = builder.mCategory;
@@ -20,6 +31,7 @@ public class Flower {
     }
 
     public static class Builder {
+
 
         private String mCategory, mInstructions, mPhoto, mName;
         private double mPrice;

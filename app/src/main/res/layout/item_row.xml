@@ -21,24 +21,33 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/magnifier2"
+                    android:id="@+id/magnifier"
                     android:src="@drawable/magnifier"
                     android:layout_width="70dp"
                     android:background="#f7e79c"
+                    android:clickable="true"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:onClick="onClickMagnifier"/>
 
 
                 <ImageView
-                    android:id="@+id/trash2"
+                    android:id="@+id/trash"
                     android:src="@drawable/trash"
                     android:layout_width="70dp"
                     android:background="@drawable/red"
+                    android:onClick="onClickTrash"
+                    android:clickable="true"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:layout_height="match_parent" />
             </LinearLayout>
+
+            <!--<data>-->
+                <!--<variable android:name="handlers" android:type="com.example.Handlers"/>-->
+                <!--<variable android:name="flower" android:type="com.anohin.formobex.model.pojo"/>-->
+            <!--</data>-->
 
             <RelativeLayout
                 android:layout_height="match_parent"
@@ -51,6 +60,7 @@
 
                 <ImageView
                     android:id="@+id/flowerImage"
+                    android:transitionName="profile"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_alignParentTop="true"

@@ -68,6 +68,14 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
 
     class Holder extends RecyclerView.ViewHolder {
 
+//        @Bind(R.id.mName)           TextView flowerName ;
+//        @Bind(R.id.mCategory)       TextView flowerCategory;
+//        @Bind(R.id.mPrice)          TextView flowerPrice;
+//        @Bind(R.id.mInstructions)   TextView flowerInstructions;
+//        @Bind(R.id.mImage)          Image flowerImage;
+
+
+
         TextView mName, mCategory, mPrice, mInstructions;
         ImageView mImage;
         SwipeLayout mSwipeLayout;

@@ -1,0 +1,65 @@
+package com.anohin.formobex.view.service;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.content.ContentValues.TAG;
+
+///**
+// * Created by Artem on 16.09.2016.
+// */
+public class BackgroundService extends Service {
+    private boolean isRunning;
+    private Context context;
+    private Thread backgroundThread;
+
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+
+    @Override
+    public void onCreate() {
+        this.context = this;
+        this.isRunning = false;
+        this.backgroundThread = new Thread(myTask);
+    }
+
+
+    private Runnable myTask = new Runnable() {
+
+        public void run() {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            String currentDateandTime = sdf.format(new Date());
+            Log.v(TAG, "Текущее время:" + " " + currentDateandTime);
+//            Toast toast = Toast.makeText(, "Helloo world " + currentDateandTime, Toast.LENGTH_LONG);
+//            toast.setGravity(Gravity.CENTER, 0, 0);
+//            toast.show();
+            stopSelf();
+        }
+    };
+
+
+    @Override
+    public void onDestroy() {
+        this.isRunning = false;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (!this.isRunning) {
+            this.isRunning = true;
+            this.backgroundThread.start();
+        }
+        return START_STICKY;
+    }
+
+}

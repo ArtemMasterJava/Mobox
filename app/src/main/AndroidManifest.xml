@@ -17,6 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name=".view.service.BackgroundService" />
+        <receiver android:name=".view.service.AlarmReceiver"></receiver>
     </application>
 
 </manifest>
