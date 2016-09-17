@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.anohin.formobex.Main2Activity;
-import com.anohin.formobex.OnImageViewListener;
+import com.anohin.formobex.OnFlowerwListener;
 import com.anohin.formobex.R;
 import com.anohin.formobex.controller.Controller;
 import com.anohin.formobex.model.adapter.FlowersAdapter;
@@ -77,16 +78,17 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
 
         mFlowersAdapter = new FlowersAdapter(mFlowerList);
         recyclerView.setAdapter(mFlowersAdapter);
-        mFlowersAdapter.setListener(new OnImageViewListener() {
+        mFlowersAdapter.setListener(new OnFlowerwListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public void onImageViewClicked(View view, String url) {
+            public void onFlowerSelected(View view, Flower flower) {
 
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-// Pass data object in the bundle and populate details activity.
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(MainActivity.this, view, "profile");
-                intent.putExtra("image", url);
+                intent.putExtra("image", flower.mPhoto);
+                intent.putExtra("info", flower.mInstructions);
+
                 MainActivity.this.startActivity(intent, options.toBundle());
             }
         });
@@ -149,9 +151,32 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
 
     }
 
+    private CardView findCardView(View view){
+        CardView cardView = null;
+        View parent = (View) view.getParent();
+
+        do {
+            if (parent instanceof  CardView){
+                cardView = (CardView) parent;
+            }else{
+                parent = (View) parent.getParent();
+            }
+        }while (cardView == null);
+
+        return cardView;
+    }
+
+    private int findPosition(View view){
+        int position = 0;
+        CardView cardView = findCardView(view);
+        RecyclerView recyclerView = (RecyclerView) cardView.getParent();
+        position = recyclerView.getChildAdapterPosition(cardView);
+        return position;
+    }
+
     public void onClickTrash(View view) {
-        mFlowersAdapter.deleteItem((Integer) view.getTag());
-        Toast.makeText(MainActivity.this, "Trash Bin" + view.getTag().toString(), Toast.LENGTH_SHORT).show();
+        int position = findPosition(view);
+        mFlowersAdapter.deleteItem(position);
     }
 
     public void onClickMagnifier(View view) {

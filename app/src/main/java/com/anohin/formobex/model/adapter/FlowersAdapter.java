@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.anohin.formobex.OnImageViewListener;
+import com.anohin.formobex.OnFlowerwListener;
 import com.anohin.formobex.R;
 import com.anohin.formobex.databinding.ItemRowBinding;
 import com.anohin.formobex.model.pojo.Flower;
@@ -25,7 +25,7 @@ import java.util.List;
 public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> {
 
     private List<Flower> mFlowers;
-    private OnImageViewListener mListener;
+    private OnFlowerwListener mListener;
 
     public FlowersAdapter(List<Flower> flowers) {
         mFlowers = flowers;
@@ -53,10 +53,9 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-
         Flower currentFlower = mFlowers.get(position);
         holder.mBinding.setFlower(currentFlower);
-        holder.mImageUrl = currentFlower.mPhoto;
+
     }
 
     @Override
@@ -70,7 +69,11 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
         notifyDataSetChanged();
     }
 
-    public void setListener(OnImageViewListener listener) {
+    public void findElementPosition(){
+
+    }
+
+    public void setListener(OnFlowerwListener listener) {
         mListener = listener;
     }
 
@@ -79,7 +82,6 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
         ItemRowBinding mBinding;
 
         ImageView mImage;
-        String mImageUrl;
 
         Holder(View itemView) {
             super(itemView);
@@ -89,7 +91,7 @@ public class FlowersAdapter extends RecyclerView.Adapter<FlowersAdapter.Holder> 
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
-                        mListener.onImageViewClicked(v, mImageUrl);
+                        mListener.onFlowerSelected(v, mBinding.getFlower());
                     }
 
                 }
