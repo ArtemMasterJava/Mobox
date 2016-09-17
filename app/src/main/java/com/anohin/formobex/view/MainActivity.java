@@ -1,12 +1,5 @@
 package com.anohin.formobex.view;
 
-import com.anohin.formobex.*;
-import com.anohin.formobex.controller.Controller;
-import com.anohin.formobex.model.adapter.FlowersAdapter;
-import com.anohin.formobex.model.pojo.Flower;
-import com.anohin.formobex.view.service.AlarmReceiver;
-import com.daimajia.swipe.SwipeLayout;
-
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -17,9 +10,22 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.*;
-import android.view.*;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.anohin.formobex.Main2Activity;
+import com.anohin.formobex.OnImageViewListener;
+import com.anohin.formobex.R;
+import com.anohin.formobex.controller.Controller;
+import com.anohin.formobex.model.adapter.FlowersAdapter;
+import com.anohin.formobex.model.pojo.Flower;
+import com.anohin.formobex.view.service.AlarmReceiver;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,12 +150,12 @@ public class MainActivity extends AppCompatActivity implements Controller.Flower
     }
 
     public void onClickTrash(View view) {
-        mFlowersAdapter.deleteItem(Integer.parseInt(view.getTag().toString()));
+        mFlowersAdapter.deleteItem((Integer) view.getTag());
         Toast.makeText(MainActivity.this, "Trash Bin" + view.getTag().toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void onClickMagnifier(View view) {
-        Toast.makeText(MainActivity.this, "Detail Menu", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Click to image for details", Toast.LENGTH_SHORT).show();
 
     }
 }

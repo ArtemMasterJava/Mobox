@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/magnifier"
-                    android:src="@drawable/bkg"
+                    android:src="@drawable/magnifier"
                     android:layout_width="70dp"
                     android:background="#f7e79c"
                     android:clickable="true"
@@ -40,9 +40,9 @@
 
                 <ImageView
                     android:id="@+id/trash"
-                    android:src="@drawable/bkg"
+                    android:src="@drawable/trash"
                     android:layout_width="70dp"
-                    android:background="@drawable/bkg"
+                    android:background="@drawable/red"
                     android:onClick="onClickTrash"
                     android:clickable="true"
                     android:paddingLeft="25dp"

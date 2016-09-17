@@ -3,7 +3,6 @@ package com.anohin.formobex.view.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -19,7 +18,6 @@ public class BackgroundService extends Service {
     private boolean isRunning;
     private Context context;
     private Thread backgroundThread;
-    private Handler mHandler;
 
 
     @Override
@@ -33,8 +31,6 @@ public class BackgroundService extends Service {
         this.context = this;
         this.isRunning = false;
         this.backgroundThread = new Thread(myTask);
-        mHandler = new Handler();
-        mHandler.post(myTask);
     }
 
 
@@ -47,7 +43,7 @@ public class BackgroundService extends Service {
 //            Toast toast = Toast.makeText(, "Helloo world " + currentDateandTime, Toast.LENGTH_LONG);
 //            toast.setGravity(Gravity.CENTER, 0, 0);
 //            toast.show();
-            mHandler.postDelayed(this, 12000);
+            stopSelf();
         }
     };
 

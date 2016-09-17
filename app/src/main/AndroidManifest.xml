@@ -20,8 +20,6 @@
 
         <service android:name=".view.service.BackgroundService"/>
 
-        <receiver android:name=".view.service.AlarmReceiver"/>
-
         <activity android:name=".Main2Activity">
         </activity>
     </application>
